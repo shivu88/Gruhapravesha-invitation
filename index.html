@@ -445,13 +445,16 @@ setInterval(()=>{
 },4000);
 
 // House slideshow
-let houseSlides=document.querySelectorAll(".house-slideshow img");
-let houseIndex=0;
+/* FIXED SLIDER */
+let slides=document.querySelectorAll(".house-slideshow a");
+let current=0;
+
 setInterval(()=>{
-  houseSlides[houseIndex].classList.remove("active");
-  houseIndex=(houseIndex+1)%houseSlides.length;
-  houseSlides[houseIndex].classList.add("active");
-},3500);
+slides[current].classList.remove("active");
+current=(current+1)%slides.length;
+slides[current].classList.add("active");
+},3000);
+
 
 // Countdown
 var eventDate=new Date("April 26, 2026 09:00:00").getTime();
