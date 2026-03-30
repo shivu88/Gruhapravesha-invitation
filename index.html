@@ -401,72 +401,66 @@ function startInvitation(){
   const bell=document.getElementById("bellSound");
   const music=document.getElementById("bgMusic");
 
-  bell.play();
+  if(bell) bell.play().catch(()=>{});
 
   setTimeout(()=>{
-    music.play();
+    if(music) music.play().catch(()=>{});
   },1500);
 
-  document.querySelector(".door-left").classList.add("open-left");
-  document.querySelector(".door-right").classList.add("open-right");
+  document.querySelector(".door-left")?.classList.add("open-left");
+  document.querySelector(".door-right")?.classList.add("open-right");
 
   document.getElementById("startScreen").style.display="none";
 
-  // 🌸 Continuous Flower Petals
+  // 🌸 Petals
   setInterval(()=>{
     let petal=document.createElement("div");
     petal.className="petal";
     petal.style.left=Math.random()*100+"vw";
     petal.style.animationDuration=(5+Math.random()*5)+"s";
     document.body.appendChild(petal);
-
-    setTimeout(()=>{ petal.remove(); },6000);
+    setTimeout(()=>petal.remove(),6000);
   },1000);
 
-  // ✨ Continuous Sparkles
+  // ✨ Sparkles
   setInterval(()=>{
     let sparkle=document.createElement("div");
     sparkle.className="sparkle";
     sparkle.style.left=Math.random()*100+"vw";
     sparkle.style.animationDuration=(3+Math.random()*4)+"s";
     document.body.appendChild(sparkle);
-
-    setTimeout(()=>{ sparkle.remove(); },4000);
+    setTimeout(()=>sparkle.remove(),4000);
   },1200);
 }
 
-// Top slideshow
-let slides=document.querySelectorAll(".slideshow img");
-let current=0;
+/* 🔹 HOUSE SLIDESHOW (FIXED) */
+let houseSlides=document.querySelectorAll(".house-slideshow a");
+let houseIndex=0;
+
+if(houseSlides.length > 0){
+  houseSlides[0].classList.add("active");
+
+  setInterval(()=>{
+    houseSlides[houseIndex].classList.remove("active");
+    houseIndex=(houseIndex+1)%houseSlides.length;
+    houseSlides[houseIndex].classList.add("active");
+  },3000);
+}
+
+/* 🔹 COUNTDOWN */
+let eventDate=new Date("April 26, 2026 09:00:00").getTime();
+
 setInterval(()=>{
-  slides[current].classList.remove("active");
-  current=(current+1)%slides.length;
-  slides[current].classList.add("active");
-},4000);
+  let now=new Date().getTime();
+  let d=eventDate-now;
 
-// House slideshow
-/* FIXED SLIDER */
-let slides=document.querySelectorAll(".house-slideshow a");
-let current=0;
+  if(d < 0) return;
 
-setInterval(()=>{
-slides[current].classList.remove("active");
-current=(current+1)%slides.length;
-slides[current].classList.add("active");
-},3000);
-
-
-// Countdown
-var eventDate=new Date("April 26, 2026 09:00:00").getTime();
-setInterval(()=>{
-  var now=new Date().getTime();
-  var distance=eventDate-now;
-  var days=Math.floor(distance/(1000*60*60*24));
-  var hours=Math.floor((distance%(1000*60*60*24))/(1000*60*60));
-  var minutes=Math.floor((distance%(1000*60*60))/(1000*60));
-  var seconds=Math.floor((distance%(1000*60))/1000);
   document.getElementById("countdown").innerHTML=
-  "⏳ Countdown: "+days+" Days "+hours+" Hours "+minutes+" Minutes "+seconds+" Seconds ";
+  "⏳ "+Math.floor(d/(1000*60*60*24))+" Days "+
+  Math.floor((d%(1000*60*60*24))/(1000*60*60))+" Hours "+
+  Math.floor((d%(1000*60*60))/(1000*60))+" Minutes "+
+  Math.floor((d%(1000*60))/1000)+" Seconds";
 },1000);
 </script>
 
