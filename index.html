@@ -83,6 +83,8 @@ body{
   border-radius:20px;
   background:white;
   box-shadow:0 20px 45px rgba(0,0,0,0.25);
+  box-sizing:border-box;   /* 🔥 ADD THIS */
+  overflow:hidden;
 }
 
 /* DIYA */
@@ -284,15 +286,16 @@ body{
 
  .invite-image{
   width:100%;
-  margin:20px 0;   /* changed from auto → keeps inside card */
+  margin:20px 0;
   border-radius:15px;
   overflow:hidden;
   box-shadow:0 10px 25px rgba(0,0,0,0.3);
-}
 
-/* IMAGE FIT */
-.invite-image img{
+  max-width:100%;   /* 🔥 ADD THIS */
+}
+  .invite-image img{
   width:100%;
+  max-width:100%;   /* 🔥 ADD THIS */
   height:auto;
   display:block;
   object-fit:contain;
